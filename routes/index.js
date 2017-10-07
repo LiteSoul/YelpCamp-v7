@@ -7,7 +7,7 @@ const User = require('../models/user')
 //for user authentication
 const passport = require('passport')
 
-//---------------APP ROUTING----------------
+//Root route
 router.get('/', function(req, res) {
 	res.render('landing')
 })
@@ -28,10 +28,11 @@ router.get('/campgrounds', (req, res) => {
 	})
 })
 
-//-------------AUTH ROUTES-----------------
+//Signup/login/logout routes
 router.get('/signup', (req, res) => {
 	res.render('auth/signup')
 })
+
 router.post('/signup', (req, res) => {
 	let newUser = new User({ username: req.body.username })
 	User.register(newUser, req.body.password, (err, user) => {
@@ -44,10 +45,12 @@ router.post('/signup', (req, res) => {
 		})
 	})
 })
+
 router.get('/login', (req, res) => {
 	res.render('auth/login')
 })
-//app.post(login route, middleware, callback)
+
+//.post(login route, middleware, callback)
 router.post(
 	'/login',
 	passport.authenticate('local', {
@@ -56,6 +59,7 @@ router.post(
 	}),
 	(req, res) => {}
 )
+
 router.get('/logout', (req, res) => {
 	req.logout() //this method comes with the pkg we installed
 	res.redirect('/campgrounds')

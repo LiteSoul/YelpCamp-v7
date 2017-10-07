@@ -4,7 +4,7 @@ const router = express.Router()
 const Campground = require('../models/campground')
 
 //CREATE route - add new campground to DB
-router.post('/campgrounds', function(req, res) {
+router.post('/', function(req, res) {
 	// get data from form and add to campgrounds array
 	var name = req.body.name
 	var image = req.body.image
@@ -22,12 +22,12 @@ router.post('/campgrounds', function(req, res) {
 })
 
 //NEW - show form to create new campground
-router.get('/campgrounds/new', function(req, res) {
+router.get('/new', function(req, res) {
 	res.render('campgrounds/new')
 })
 
 //SHOW - show info about a single camp ID
-router.get('/campgrounds/:id', function(req, res) {
+router.get('/:id', function(req, res) {
 	//find the campground with provided id
 	//that :id is being captured here with .params
 	//mongoose gives us this method: .findById(id,callback)

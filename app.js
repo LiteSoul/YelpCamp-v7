@@ -59,9 +59,9 @@ app.use((req, res, next) => {
 })
 
 //Use routes
-app.use(campgroundRoutes)
-app.use(commentsRoutes)
-app.use(indexRoutes)
+app.use('/campgrounds', campgroundRoutes)
+app.use('/campgrounds/:id/comments', commentsRoutes)
+app.use('/', indexRoutes)
 
 //-------------404 PAGE-----------------
 app.get('*', (req, res) => {

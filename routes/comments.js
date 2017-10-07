@@ -1,11 +1,13 @@
 const express = require('express')
-const router = express.Router()
+//Preserve the req.params values from the parent router.
+//In this case campgrounds so we can access :id
+const router = express.Router({ mergeParams: true })
 //models require
 const Campground = require('../models/campground')
 const Comment = require('../models/comment')
 
-//----------COMMENTS ROUTES-------------
-router.get('/campgrounds/:id/comments/new', isLoggedIn, (req, res) => {
+//Comments new
+router.get('/new', isLoggedIn, (req, res) => {
 	//see SHOW campground route for method
 	Campground.findById(req.params.id, function(err, foundCamp) {
 		if (err) {
@@ -16,8 +18,8 @@ router.get('/campgrounds/:id/comments/new', isLoggedIn, (req, res) => {
 	})
 })
 
-//CREATE route - add new comment to campground
-router.post('/campgrounds/:id/comments', isLoggedIn, function(req, res) {
+//Comments create
+router.post('/', isLoggedIn, function(req, res) {
 	//Create a new comment and save it to DB:
 	Campground.findById(req.params.id, function(err, foundCamp) {
 		if (err) {
